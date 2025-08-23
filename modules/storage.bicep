@@ -13,3 +13,6 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2025-01-01' = {
   }
   kind: kind
 }
+
+output storageAccountName string = storageAccount.name
+output storageAccountId string = storageAccount.id

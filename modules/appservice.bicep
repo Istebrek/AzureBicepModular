@@ -7,6 +7,9 @@ param skuName string
 param skuCapacity int
 param httpsOnly bool
 
+// @secure()
+// param storageConnectionString string
+
 resource appServicePlan 'Microsoft.Web/serverfarms@2024-11-01' = {
   name: appServicePlanName
   location: location
@@ -23,6 +26,7 @@ resource appService 'Microsoft.Web/sites@2024-11-01' = {
     serverFarmId: appServicePlan.id
     httpsOnly: httpsOnly
   }
+
 }
 
-output appServicePlanId string = appServicePlan.id
+output appServiceURL string = 'https://${appService.properties.defaultHostName}'

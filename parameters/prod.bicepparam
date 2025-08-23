@@ -1,13 +1,14 @@
 using '../main.bicep'
 
-param env = ''
-param location = ''
-param storageAccountName = ''
-param appService = ''
-param appServiceName = ''
-param appServicePlanName = ''
+param env = 'prod'
+param location = 'swedencentral'
+param storageAccountName = 'biceplab-sa'
+param appService = 'AppService-prod'
+param appServiceName = 'biceplab-as'
+param appServicePlanName = 'biceplab-asp'
+param appSkuName = 'S1'
 param httpsOnly = true
 param skuCapacity = 1
-param skuName = ''
-param storageAccount =''
-param storageKind = ''
+param storageSkuName = 'Standard_LRS'
+param storageAccount = 'StorageAccount-prod'
+param storageKind = 'StorageV2'
