@@ -1,0 +1,42 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "env": {
+      "value": "dev"
+    },
+    "location": {
+      "value": "swedencentral"
+    },
+    "storageAccountName": {
+      "value": "biceplab-sa"
+    },
+    "appService": {
+      "value": "AppService-dev"
+    },
+    "appServiceName": {
+      "value": "biceplab-as"
+    },
+    "appServicePlanName": {
+      "value": "biceplab-asp"
+    },
+    "appSkuName": {
+      "value": "B1"
+    },
+    "httpsOnly": {
+      "value": true
+    },
+    "skuCapacity": {
+      "value": 1
+    },
+    "storageSkuName": {
+      "value": "Standard_LRS"
+    },
+    "storageAccount": {
+      "value": "StorageAccount-dev"
+    },
+    "storageKind": {
+      "value": "StorageV2"
+    }
+  }
+}
