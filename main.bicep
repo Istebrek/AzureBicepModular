@@ -6,7 +6,8 @@ param storageAccount string
 param appService string
 param storageKind string
 param skuCapacity int
-param skuName string
+param storageSkuName string
+param appSkuName string
 
 param storageAccountName string
 param appServicePlanName string
@@ -18,7 +19,7 @@ module StorageAccount './modules/storage.bicep' = {
   name: storageAccount
   params: {
     location: location
-    skuName: skuName
+    skuName: storageSkuName
     kind: storageKind
     storageAccountName: '${storageAccountName}-${env}-${uniqueString(resourceGroup().id)}'
   }
@@ -32,6 +33,6 @@ module AppService './modules/appservice.bicep' = {
     httpsOnly: httpsOnly
     location: location
     skuCapacity: skuCapacity
-    skuName: skuName
+    skuName: appSkuName
   }
 }
