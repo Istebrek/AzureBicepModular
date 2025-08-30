@@ -2,23 +2,23 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "env": {
-      "value": "dev"
+    "prod": {
+      "value": false
     },
     "location": {
       "value": "swedencentral"
     },
     "storageAccountName": {
-      "value": "biceplab-sa"
+      "value": "storagedev"
     },
     "appService": {
       "value": "AppService-dev"
     },
     "appServiceName": {
-      "value": "biceplab-as"
+      "value": "biceplab-as-dev"
     },
     "appServicePlanName": {
-      "value": "biceplab-asp"
+      "value": "biceplab-asp-dev"
     },
     "appSkuName": {
       "value": "B1"
@@ -37,6 +37,63 @@
     },
     "storageKind": {
       "value": "StorageV2"
+    },
+    "autoScaleName": {
+      "value": "app-autoscale-dev"
+    },
+    "enabledTrue": {
+      "value": true
+    },
+    "profileName": {
+      "value": "defaultProfile"
+    },
+    "minCapacity": {
+      "value": "1"
+    },
+    "maxCapacity": {
+      "value": "5"
+    },
+    "defaultCapacity": {
+      "value": "1"
+    },
+    "metricName": {
+      "value": "Percentage CPU"
+    },
+    "timeGrain": {
+      "value": "PT1M"
+    },
+    "timeWindow": {
+      "value": "PT5M"
+    },
+    "statistic": {
+      "value": "Average"
+    },
+    "triggerOperator": {
+      "value": "GreaterThan"
+    },
+    "triggerThreshold": {
+      "value": 70
+    },
+    "direction": {
+      "value": "Increase"
+    }, 
+    "type": {
+      "value": "ChangeCount"
+    },
+    "value": {
+      "value": "1"
+    },
+    "triggerOperatorDown": {
+      "value": "LessThan"
+    }, 
+    "triggerThresholdDown": {
+      "value": 30
+    },
+    "directionDown": {
+      "value": "Decrease"
+    },
+    "nameSpace": {
+      "value": "Microsoft.Web/serverfarms"
     }
   }
 }

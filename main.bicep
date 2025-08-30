@@ -1,6 +1,6 @@
 targetScope = 'resourceGroup'
 
-param env string
+param prod bool
 param location string
 param storageAccount string
 param appService string
@@ -15,24 +15,71 @@ param appServiceName string
 
 param httpsOnly bool
 
+param autoScaleName string
+param enabledTrue bool
+param profileName string
+param minCapacity string
+param maxCapacity string
+param defaultCapacity string
+param metricName string
+param timeGrain string
+param statistic string
+param timeWindow string
+param triggerOperator string
+param triggerThreshold int
+param direction string
+param triggerOperatorDown string
+param triggerThresholdDown int
+param directionDown string
+param type string
+param value string
+param nameSpace string
+
 module StorageAccount './modules/storage.bicep' = {
   name: storageAccount
   params: {
     location: location
     skuName: storageSkuName
     kind: storageKind
-    storageAccountName: '${storageAccountName}-${env}-${uniqueString(resourceGroup().id)}'
+    storageAccountName: '${storageAccountName}${uniqueString(resourceGroup().id)}'
   }
 }
 
-module AppService './modules/appservice.bicep' = {
+module AppService './modules/appservice.bicep' =  {
   name: appService
   params: {
-    appServiceName: '${appServiceName}-${env}'
-    appServicePlanName: '${appServicePlanName}-${env}-${uniqueString(resourceGroup().id)}'
+    appServiceName: appServiceName
+    appServicePlanName: '${appServicePlanName}-${uniqueString(resourceGroup().id)}'
     httpsOnly: httpsOnly
     location: location
     skuCapacity: skuCapacity
     skuName: appSkuName
+  }
+}
+
+module autoscale './modules/autoscale.bicep' = if (prod == true) {
+  name: autoScaleName
+  params: {
+    appServicePlanId: AppService.outputs.appServicePlanId
+    autoScaleName: autoScaleName
+    defaultCapacity: defaultCapacity
+    direction: direction
+    directionDown: directionDown
+    enabledTrue: enabledTrue
+    location: location
+    maxCapacity: maxCapacity
+    metricName: metricName
+    minCapacity: minCapacity
+    profileName: profileName
+    statistic: statistic
+    timeGrain: timeGrain
+    timeWindow: timeWindow
+    triggerOperator: triggerOperator
+    triggerOperatorDown: triggerOperatorDown
+    triggerThreshold: triggerThreshold
+    triggerThresholdDown: triggerThresholdDown
+    type: type
+    value: value
+    nameSpace: nameSpace
   }
 }
