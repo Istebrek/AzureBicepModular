@@ -94,6 +94,9 @@
     },
     "nameSpace": {
       "value": "Microsoft.Web/serverfarms"
+    }, 
+    "env": {
+      "value": "prod"
     }
   }
 }

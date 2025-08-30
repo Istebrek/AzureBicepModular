@@ -34,6 +34,7 @@ param directionDown string
 param type string
 param value string
 param nameSpace string
+param env string
 
 module StorageAccount './modules/storage.bicep' = {
   name: storageAccount
@@ -42,6 +43,9 @@ module StorageAccount './modules/storage.bicep' = {
     skuName: storageSkuName
     kind: storageKind
     storageAccountName: '${storageAccountName}${uniqueString(resourceGroup().id)}'
+    owner: resourceGroup().managedBy
+    costCenter: resourceGroup().name
+    env: env
   }
 }
 
@@ -54,6 +58,9 @@ module AppService './modules/appservice.bicep' =  {
     location: location
     skuCapacity: skuCapacity
     skuName: appSkuName
+    owner: resourceGroup().managedBy
+    costCenter: resourceGroup().name
+    env: env
   }
 }
 
@@ -81,5 +88,8 @@ module autoscale './modules/autoscale.bicep' = if (prod == true) {
     type: type
     value: value
     nameSpace: nameSpace
+    owner: resourceGroup().managedBy
+    costCenter: resourceGroup().name
+    env: env
   }
 }

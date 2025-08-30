@@ -20,10 +20,19 @@ param type string
 param value string
 param nameSpace string
 
+param owner string
+param costCenter string
+param env string
+
 
 resource autoScale 'Microsoft.Insights/autoscalesettings@2022-10-01' = {
   name: autoScaleName
   location: location
+  tags: {
+    owner: owner
+    environment: env
+    costCenter: costCenter
+  }
   properties: {
     enabled: enabledTrue
     targetResourceUri: appServicePlanId
