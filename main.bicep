@@ -36,6 +36,13 @@ param value string
 param nameSpace string
 param env string
 
+param keyVault string
+param keyVaultName string
+param skuFamily string
+param kvSkuName string
+param kvSecretName string
+param storageConnectionString string
+
 module StorageAccount './modules/storage.bicep' = {
   name: storageAccount
   params: {
@@ -43,7 +50,7 @@ module StorageAccount './modules/storage.bicep' = {
     skuName: storageSkuName
     kind: storageKind
     storageAccountName: '${storageAccountName}${uniqueString(resourceGroup().id)}'
-    owner: resourceGroup().managedBy
+    owner: resourceGroup().name
     costCenter: resourceGroup().name
     env: env
   }
@@ -58,13 +65,15 @@ module AppService './modules/appservice.bicep' =  {
     location: location
     skuCapacity: skuCapacity
     skuName: appSkuName
-    owner: resourceGroup().managedBy
+    owner: resourceGroup().name
     costCenter: resourceGroup().name
     env: env
+    secretUri: KeyVault.outputs.secretUri
+    storageConnectionString: storageConnectionString
   }
 }
 
-module autoscale './modules/autoscale.bicep' = if (prod == true) {
+module AutoScale './modules/autoscale.bicep' = if (prod == true) {
   name: autoScaleName
   params: {
     appServicePlanId: AppService.outputs.appServicePlanId
@@ -88,8 +97,23 @@ module autoscale './modules/autoscale.bicep' = if (prod == true) {
     type: type
     value: value
     nameSpace: nameSpace
-    owner: resourceGroup().managedBy
+    owner: resourceGroup().name
     costCenter: resourceGroup().name
     env: env
   }
 }
+
+module KeyVault './modules/keyvault.bicep' = {
+  name: keyVault
+  params: {
+    location: location
+    keyVaultName: '${keyVaultName}-${uniqueString(subscription().id)}'
+    kvSecretName: kvSecretName
+    kvSkuName: kvSkuName
+    skuFamily: skuFamily
+    storageAccountId: StorageAccount.outputs.storageAccountId
+    storageAccountName: StorageAccount.outputs.storageAccountName
+  }
+}
+
+output appServiceURL string = AppService.outputs.appServiceURL

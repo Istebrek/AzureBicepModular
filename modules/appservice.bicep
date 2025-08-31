@@ -10,9 +10,8 @@ param httpsOnly bool
 param owner string
 param costCenter string
 param env string
-
-// @secure()
-// param storageConnectionString string
+param secretUri string
+param storageConnectionString string
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2024-11-01' = {
   name: appServicePlanName
@@ -39,8 +38,16 @@ resource appService 'Microsoft.Web/sites@2024-11-01' = {
   properties: {
     serverFarmId: appServicePlan.id
     httpsOnly: httpsOnly
+    siteConfig: {
+      appSettings: [
+        {
+          name: storageConnectionString
+          value: '@Microsoft.KeyVault(SecretUri=${secretUri})'
+        }
+      ]
+    }
   }
 }
 
-output appServiceURL string = 'https://${appService.properties.defaultHostName}'
+output appServiceURL string = 'https://${appServiceName}.azurewebsites.net'
 output appServicePlanId string = appServicePlan.id

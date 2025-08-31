@@ -57,7 +57,7 @@
       "value": "1"
     },
     "metricName": {
-      "value": "Percentage CPU"
+      "value": "CpuPercentage"
     },
     "timeGrain": {
       "value": "PT1M"
@@ -97,6 +97,24 @@
     }, 
     "env": {
       "value": "dev"
+    },
+    "keyVault": {
+      "value": "KeyVault"
+    },
+    "keyVaultName": {
+      "value": "kv-dev"
+    },
+    "skuFamily": {
+      "value": "A"
+    },
+    "kvSkuName": {
+      "value": "standard"
+    },
+    "kvSecretName": {
+      "value": "kv-storage-connectionstring"
+    },
+    "storageConnectionString": {
+      "value": "StorageConnectionString"
     }
   }
 }

@@ -97,6 +97,24 @@
     }, 
     "env": {
       "value": "prod"
+    },
+    "keyVault": {
+      "value": "KeyVault"
+    },
+    "keyVaultName": {
+      "value": "kv-prod"
+    },
+    "skuFamily": {
+      "value": "A"
+    },
+    "kvSkuName": {
+      "value": "standard"
+    },
+    "kvSecretName": {
+      "value": "kv-storage-connectionstring"
+    },
+    "storageConnectionString": {
+      "value": "StorageConnectionString"
     }
   }
 }
