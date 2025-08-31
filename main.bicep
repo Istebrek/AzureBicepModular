@@ -107,7 +107,7 @@ module KeyVault './modules/keyvault.bicep' = {
   name: keyVault
   params: {
     location: location
-    keyVaultName: '${keyVaultName}-${uniqueString(subscription().id)}'
+    keyVaultName: '${keyVaultName}-${uniqueString(resourceGroup().id)}'
     kvSecretName: kvSecretName
     kvSkuName: kvSkuName
     skuFamily: skuFamily
